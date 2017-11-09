@@ -2,7 +2,7 @@
 
 module.exports = function(environment) {
   var ENV = {
-    modulePrefix: 'marchforscience',
+    modulePrefix: 'thepeoplesscience',
     environment: environment,
     rootURL: '/',
     locationType: 'auto',

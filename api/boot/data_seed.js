@@ -11,13 +11,13 @@ module.exports = function(server) {
   }
 
   if (User) {
-    User.count({ email: 'superuser@marchforscience.com' }, (err, count) => {
+    User.count({ email: 'superuser@covieducation.org' }, (err, count) => {
       if (err) return cb(err);
       if (count !== 0) return;
       User.create({
         firstName: 'Super',
         lastName: 'User',
-        email: 'superuser@marchforscience.com',
+        email: 'superuser@covieducation.org',
         password: process.env.SUPERUSER_PASSWORD,
         phone: '1234567890',
         role: 'admin',

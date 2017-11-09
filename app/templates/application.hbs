@@ -18,7 +18,7 @@
 
     <li class="app--nav__listitem hide-for-mobile">
       {{#if session.isLoggedOut}}
-        <a href="https://www.marchforscience.com/donate" target="_blank" style="margin: 0 18px 0 12px">Donate</a>
+        {{#link-to 'login' class="app__nav--profilelink"}}Log In{{/link-to}}
       {{else}}
         {{#link-to 'profile' class="app__nav--profilelink"}}<img src={{transparent-pixel}} style="background-image: url({{session.user.image}});" alt="Profile Edit" class="auth__nav-image">{{/link-to}}
       {{/if}}
