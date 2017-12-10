@@ -12,13 +12,13 @@ export default Ember.Component.extend({
 
         var images = [];
 
-        this.get('satellites').forEach((satellite) => {
+        this.get('labs').forEach((lab) => {
           images.push({
             "svgPath": targetSVG,
             "color": "#e8674d",
             "alpha": .333,
-            "latitude": get(satellite, 'latitude'),
-            "longitude": get(satellite, 'longitude')
+            "latitude": get(lab, 'latitude'),
+            "longitude": get(lab, 'longitude')
           });
         });
 

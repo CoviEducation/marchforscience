@@ -10,8 +10,8 @@ module.exports = function(app) {
       });
     }
 
-    // if the target model is not a satellite, disallow
-    if (context.modelName !== 'satellite') {
+    // if the target model is not a lab, disallow
+    if (context.modelName !== 'lab') {
       return reject();
     }
 
@@ -22,7 +22,7 @@ module.exports = function(app) {
       return reject();
     }
 
-    // check if userId is in team table for the given satellite id
+    // check if userId is in team table for the given lab id
     var Members = app.models.user;
 
     Members.count({

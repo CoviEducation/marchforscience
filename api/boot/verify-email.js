@@ -20,11 +20,11 @@ module.exports = function(server) {
 
       var options = {
         protocol: isDev ? 'http' : 'https',
-        host: isDev ? 'localhost' : 'satellites.marchforscience.com',
+        host: isDev ? 'localhost' : 'covieducation.com',
         port: isDev ? '4000' : '443',
         type: 'email',
         to: user.email,
-        from: 'no-reply@marchforscience.com',
+        from: 'no-reply@covieducation.com',
         subject: 'Email verification link',
         template: path.resolve(__dirname, '../../emails/verify.ejs'),
         redirect: '/verified',

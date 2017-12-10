@@ -17,7 +17,7 @@
           {{#tablist.tab "subs" on-select=(action (mut selection))}}Subscriptions{{/tablist.tab}}
         </li>
         <li role="presentation">
-          {{#tablist.tab "satellites" on-select=(action (mut selection))}}Satellites{{/tablist.tab}}
+          {{#tablist.tab "labs" on-select=(action (mut selection))}}labs{{/tablist.tab}}
         </li>
       </ul>
     {{/tabs.tablist}}
@@ -51,18 +51,18 @@
       <h4 class="u-text-center u-text-gray">No Subscriptions</h4>
     {{/tabs.tabpanel}}
 
-    {{#tabs.tabpanel "satellites"}}
-      <h2>Satellites</h2>
-      <ul class="user-profile__satellite">
-      {{#each session.user.satellites as | satellite |}}
-        <li class="user-profile__satellite-list">
-            {{#link-to 'satellite' satellite.id class="user-profile__satellite-link"}}
-              <img src={{transparent-pixel}} style="background-image: url({{satellite.logo}});">
-              <h3>{{satellite.city}}, {{satellite.state}}, {{satellite.country}}</h3>
+    {{#tabs.tabpanel "labs"}}
+      <h2>labs</h2>
+      <ul class="user-profile__lab">
+      {{#each session.user.labs as | lab |}}
+        <li class="user-profile__lab-list">
+            {{#link-to 'lab' lab.id class="user-profile__lab-link"}}
+              <img src={{transparent-pixel}} style="background-image: url({{lab.logo}});">
+              <h3>{{lab.city}}, {{lab.state}}, {{lab.country}}</h3>
             {{/link-to}}
         </li>
       {{else}}
-        <h4 class="u-text-center u-text-gray">No Satellites</h4>
+        <h4 class="u-text-center u-text-gray">No labs</h4>
       {{/each}}
     </ul>
 

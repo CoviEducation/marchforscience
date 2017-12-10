@@ -12,7 +12,7 @@ export default Ember.Object.extend({
   role: '',
   bio: '',
 
-  satellites: [],
+  labs: [],
 
   isSuper: Ember.computed('role', function(){
     return this.get('role') === 'admin';

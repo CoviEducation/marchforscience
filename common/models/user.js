@@ -5,10 +5,10 @@ module.exports = function(User) {
   User.on('dataSourceAttached', function(obj){
     var find = User.find;
     User.find = function(filter={}, auth, cb) {
-      // Don't infinite loop while including satellites (which in turn include users...)
+      // Don't infinite loop while including labs (which in turn include users...)
       if (cb && cb.name !== 'targetsFetchHandler'){
         filter.include = [{
-          relation: 'satellites',
+          relation: 'labs',
           scope: {
             fields: ['id', 'name', 'logo', 'city', 'state', 'country'],
           }

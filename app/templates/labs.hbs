@@ -1,0 +1,21 @@
+
+<section id="labs-page" class="u-grid-container">
+
+  {{world-map labs=labs.list}}
+
+  <h1 class="u-text-center u-text-orange">{{t 'labs.search_primary_cta' count=labCount}}</h1>
+  <h2 class="u-text-center u-text-blue">{{t 'labs.search_secondary_cta'}}</h2>
+
+  <div class="lab-typeahead u-grid-12 u-grid-center">
+    {{aupac-typeahead
+        modelClass='lab'
+        source=labQuery
+        limit='999'
+        transformSelection=transformSelection
+        placeholder=(t 'labs.typeahead_search')
+        action=(action 'selectLabTypeahead')
+        suggestionTemplate=customSuggestionTemplate
+    }}
+  </div>
+
+</section>

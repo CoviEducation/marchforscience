@@ -2,10 +2,10 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
 
-  satellites: Ember.inject.service('satellites'),
+  labs: Ember.inject.service('labs'),
 
   beforeModel(){
-    this.get('satellites').setup();
+    this.get('labs').setup();
   },
 
 });

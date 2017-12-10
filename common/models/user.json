@@ -32,7 +32,8 @@
     },
     "role": {
       "type": "string",
-      "index": true
+      "index": true,
+      "enum": [ "admin", "moderator" ]
     },
     "bio": {
       "type": "string"
@@ -40,17 +41,12 @@
   },
   "validations": [],
   "relations": {
-    "satellites": {
+    "labs": {
       "type": "hasMany",
-      "model": "satellite",
+      "model": "lab",
       "foreignKey": "userId",
-      "through": "SatelliteAdmins",
-      "keyThrough": "satelliteId"
-    },
-    "adminroles": {
-      "type": "hasMany",
-      "model": "SatelliteAdmins",
-      "foreignKey": "userId"
+      "through": "LabMembership",
+      "keyThrough": "labId"
     }
   },
   "acls": [

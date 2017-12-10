@@ -9,9 +9,9 @@ export default {
   //
   // "key.with.interpolation": "Text with {{anInterpolation}}"
 
-  satellites: {
+  labs: {
     typeahead_search: 'Search by city, state or country...',
-    search_primary_cta: "{{count}} satellites and counting",
-    search_secondary_cta: "Discover your local satellite"
+    search_primary_cta: "{{count}} labs and counting",
+    search_secondary_cta: "Discover your local lab"
   }
 };

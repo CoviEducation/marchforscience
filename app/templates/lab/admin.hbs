@@ -1,0 +1,205 @@
+<header class="lab-profile__header u-text-center">
+  <div class="lab-profile__header--background" aria-hidden="true" style="background-image: url({{model.banner}})"></div>
+
+  {{#image-uploader onUpload=(route-action 'onImageUpload' 'logo') class="lab-profile__image-upload" as | url |}}
+    <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+         class="lab-profile__header--logo"
+         alt="lab March Logo"
+         style="background-image: url({{model.logo}});position: relative;z-index: 2"
+        >
+  {{/image-uploader}}
+
+
+  {{#image-uploader onUpload=(route-action 'onImageUpload' 'banner') as | url |}}
+    <div class="lab-profile__banner-upload" style="width: 100%; height: 100%;position:absolute;top:0;left:0;z-index:1"></div>
+  {{/image-uploader}}
+
+  <h1 class="u-text-white u-text-bold u-text-capital">March for Science</h1>
+  <h2 class="u-text-orange">{{model.displayName}}</h2>
+
+  <button {{action (route-action 'saveChanges')}} class="u-button--large lab-profile__header--button" style="positon: relative;z-index:3">Save Changes</button>
+  <button {{action (route-action 'cancelChanges')}} class="u-button__tertiary lab-profile__header--button" style="positon: relative;z-index:3;margin-left: 24px;">Cancel</button>
+
+</header>
+
+<main class="u-grid-container">
+  {{#ivy-tabs selection=selection as |tabs|}}
+
+    {{!-- {{#tabs.tablist as |tablist|}}
+
+      <ul role="presentation">
+
+        <li role="presentation">
+          {{#tablist.tab "goals" on-select=(route-action 'routeTab' 'lab.admin.about')}}
+            About
+          {{/tablist.tab}}
+        </li>
+
+        <li role="presentation">
+          {{#tablist.tab "team" on-select=(route-action 'routeTab' 'lab.admin.team')}}
+            Team
+          {{/tablist.tab}}
+        </li>
+
+        <li role="presentation">
+          {{#tablist.tab "events" on-select=(route-action 'routeTab' 'lab.admin.events')}}
+            Programs
+          {{/tablist.tab}}
+        </li>
+
+        <li role="presentation">
+          {{#tablist.tab "blog" on-select=(route-action 'routeTab' 'lab.admin.resources')}}
+            Resources
+          {{/tablist.tab}}
+        </li>
+
+      </ul>
+
+    {{/tabs.tablist}} --}}
+
+    <section class="lab-profile__section" id="about">
+      <div class="u-grid-16">
+        {{#quill-editor ops=model.parsedMission onChange=(route-action "onMissionChange")}}{{/quill-editor}}
+      </div>
+
+      <div class="u-grid-8 u-grid-last">
+        {{float-input value=(mut model.donateLink) label="Donate Link"}}
+
+        {{float-input value=(mut model.storeLink) label="Store Link" class="lab-profile__store-link"}}
+        {{#image-uploader onUpload=(route-action 'onImageUpload' 'storeImage') class="lab-profile__store-imageupload" as | url |}}
+          <img src={{transparent-pixel}}
+               class="lab-profile__store-image"
+               alt="lab March Store Image"
+               style="background-image: url({{model.storeImage}});position: relative;z-index: 2"
+              >
+        {{/image-uploader}}
+
+      </div>
+
+    </section>
+
+
+    <section class="lab-profile__section">
+      <div class="u-grid-12">
+        <h3>Blog</h3>
+        <select style="line-height: 45px;height: 45px;width: 100px;float: left;" onchange={{action (mut model.blogType) value="target.value"}}>
+          <option value="" selected={{eq '' model.blogType}}>Blog Type</option>
+          <option value="medium" selected={{eq 'medium' model.blogType}}>Medium</option>
+          <option value="wordpress" selected={{eq 'wordpress' model.blogType}}>Wordpress</option>
+          <option value="squarespace" selected={{eq 'squarespace' model.blogType}}>Squarespace</option>
+          <option value="other" selected={{eq 'other' model.blogType}}>Other</option>
+        </select>
+        {{float-input value=(mut model.blog) label="Blog URL" class="blog-options-url"}}
+      </div>
+
+      <div class="u-grid-12 u-grid-last">
+        <h3>Social Media</h3>
+        {{float-input value=(mut model.facebook) label="Facebook URL" icon="facebook-official" placeholder="https://www.facebook.com/marchforscience"}}
+        {{float-input value=(mut model.twitter) label="Twitter URL" icon="twitter" placeholder="https://www.facebook.com/sciencemarchdc"}}
+        {{float-input value=(mut model.instagram) label="Instagram URL" icon="instagram" placeholder="https://www.instagram.com/sciencemarchdc"}}
+        {{float-input value=(mut model.website) label="Website URL" icon="website" placeholder="https://www.marchforscience.com"}}
+      </div>
+    </section>
+
+    <section class="lab-profile__section--gray" id="team">
+      <h3>Team</h3>
+      <ul class="lab-profile__section--team">
+        {{#each model.admins as | admin |}}
+            <li class="lab-profile__team-member u-grid-6 u-grid-last">
+              <img  src={{transparent-pixel}}
+                    alt="{{admin.firstName}} {{admin.lastName}} Profile Image"
+                    style="background-image: url({{admin.image}})">
+              <h4>{{admin.firstName}} {{admin.lastName}}</h4>
+              <button class="fa fa-close lab-profile__teammate-remove" {{action "removeTeammate" admin.adminroles.0.id admin}}></button>
+              {{#if admin.adminroles.0.title}}<h5>{{admin.adminroles.0.title}}</h5>{{/if}}
+            </li>
+        {{/each}}
+
+        {{#if showAddTeammate}}
+          <li class="lab-profile__team-member lab-profile_add-new u-grid-6 u-grid-last">
+            {{float-input value=(mut newTeamEmail) label="Member Email"}}
+            {{float-input value=(mut newTeamTitle) label="Position Title"}}
+            <button class="u-button" {{action 'addTeammate' newTeamEmail newTeamTitle}}>Save</button>
+            <button class="u-button__tertiary" style="margin-left: 8px;"{{action 'toggleAddTeammate'}}>Cancel</button>
+          </li>
+        {{else}}
+          <li class="lab-profile__team-member lab-profile_add-new u-grid-6 u-grid-last" {{action 'toggleAddTeammate'}}>
+            <span class="lab-profile__add-new--image"></span>
+            <h4>Add a teammate</h4>
+          </li>
+        {{/if}}
+
+      </ul>
+    </section>
+
+    <section class="lab-profile__section" id="sponsors">
+      <h3>Sponsors</h3>
+      <ul class="lab-profile__section--team">
+        {{#each model.sponsors as | sponsor |}}
+            <li class="lab-profile__company-logo u-grid-6 u-grid-last">
+              <a href="{{sponsor.link}}" target="_blank">
+                <img  src={{transparent-pixel}}
+                      alt="{{sponsor.name}} Profile Image"
+                      style="background-image: url({{sponsor.image}})">
+                <h4>{{sponsor.name}}</h4>
+                <button class="fa fa-close lab-profile__teammate-remove" {{action "removeSponsor" sponsor}}></button>
+              </a>
+            </li>
+        {{/each}}
+
+        {{#if showAddSponsor}}
+          <li class="lab-profile__company-logo lab-profile_add-new u-grid-6 u-grid-last">
+            {{float-input value=(mut sponsorName) label="Sponsor Name"}}
+            {{float-input value=(mut sponsorLink) label="Sponsor Link"}}
+            <button class="u-button" {{action 'addSponsor' sponsorName sponsorLink}}>Save</button>
+            <button class="u-button__tertiary" style="margin-left: 8px;"{{action 'toggleSponsor'}}>Cancel</button>
+          </li>
+        {{else}}
+          {{#image-uploader onUpload=(action 'toggleSponsor') class="lab-profile__endorsement-upload lab-profile__company-logo u-grid-6 u-grid-last" as | url |}}
+            <li class="lab-profile__company-logo lab-profile_add-new u-grid-6 u-grid-last">
+              <span class="lab-profile__add-new--image"></span>
+              <h4>Add sponsor</h4>
+            </li>
+          {{/image-uploader}}
+        {{/if}}
+      </ul>
+    </section>
+
+    <section class="lab-profile__section" id="endorsements">
+      <h3>Endorsements</h3>
+      <ul class="lab-profile__section--team">
+        {{#each model.endorsements as | endorsement |}}
+            <li class="lab-profile__company-logo u-grid-6 u-grid-last">
+              <a href="{{endorsement.link}}" target="_blank">
+                <img  src={{transparent-pixel}}
+                      alt="{{endorsement.name}} Profile Image"
+                      style="background-image: url({{endorsement.image}})">
+                <h4>{{endorsement.name}}</h4>
+                <button class="fa fa-close lab-profile__teammate-remove" {{action "removeEndorsement" endorsement}}></button>
+              </a>
+            </li>
+        {{/each}}
+
+        {{#if showAddEndorsement}}
+          <li class="lab-profile__company-logo lab-profile_add-new u-grid-6 u-grid-last">
+            {{float-input value=(mut endorsementName) label="Endorsement Name"}}
+            {{float-input value=(mut endorsementLink) label="Endorsement Link"}}
+            <button class="u-button" {{action 'addEndorsement' endorsementName endorsementLink}}>Save</button>
+            <button class="u-button__tertiary" style="margin-left: 8px;"{{action 'toggleEndorsement'}}>Cancel</button>
+          </li>
+        {{else}}
+          {{#image-uploader onUpload=(action 'toggleEndorsement') class="lab-profile__endorsement-upload lab-profile__company-logo u-grid-6 u-grid-last" as | url |}}
+            <li class="lab-profile__company-logo lab-profile_add-new u-grid-6 u-grid-last">
+              <span class="lab-profile__add-new--image"></span>
+              <h4>Add endorsement</h4>
+            </li>
+          {{/image-uploader}}
+        {{/if}}
+
+      </ul>
+    </section>
+
+    {{outlet}}
+
+  {{/ivy-tabs}}
+</main>

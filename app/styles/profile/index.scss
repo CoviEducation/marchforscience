@@ -1,13 +1,13 @@
 @import "./info";
 
-.user-profile__satellite-list {
+.user-profile__lab-list {
   list-style: none;
   margin: 0 0 16px 0;
   padding: 0;
 
 }
 
-.user-profile__satellite {
+.user-profile__lab {
   margin: 0 0 12px 0;
   padding: 0;
 
@@ -31,7 +31,7 @@
   }
 }
 
-.user-profile__satellite-link {
+.user-profile__lab-link {
   transition: background-color .3s;
   display: block;
   overflow: hidden;

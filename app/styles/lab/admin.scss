@@ -1,0 +1,102 @@
+.lab-profile {
+
+  .lab-profile__image-upload {
+    display: inline-block;
+    overflow: hidden;
+    position: relative;
+
+    &:after {
+      @include elevation(2);
+      font: normal normal normal 14px/1 FontAwesome;
+      content: "\f040";
+      position:absolute;
+      bottom: 20px;
+      right: 3px;
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      text-align: center;
+      line-height: 24px;
+      z-index: 99;
+
+      background-color: rgba(255,255,255,.75);
+      transition: background-color .3s;
+    }
+    &:hover:after {
+      background-color: white;
+    }
+
+  }
+
+  .lab-profile__banner-upload {
+    width: 100%;
+    height: 100%;
+    position:absolute;
+    top:0;
+    left:0;
+    z-index:1;
+
+    &:after {
+      @include elevation(2);
+      font: normal normal normal 14px/1 FontAwesome;
+      font-family: FontAwesome, 'Source Sans Pro', sans-serif;
+      content: "\f040   Edit Banner";
+      white-space: pre;
+      position:absolute;
+      top: 16px;
+      right: 16px;
+      width: 120px;
+      height: 32px;
+      text-align: center;
+      line-height: 32px;
+      z-index: 99;
+      border-radius: 6px;
+      z-index: 99;
+
+      background-color: rgba(255,255,255,.75);
+      transition: background-color .3s;
+    }
+
+    &:hover:after {
+      background-color: white;
+    }
+
+
+  }
+
+  .lab-profile__store-image {
+    border-radius: 0 0 3px 3px !important;
+    width: calc(100% - 2px) !important;
+    margin-left: 1px !important;
+  }
+
+  .lab-profile__store-imageupload {
+    display: block;
+    position: relative;
+    &:before {
+      content: "\f040";
+      font-family: "fontawesome";
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 32px;
+      height: 32px;
+      color: rgba(0,0,0,.55);
+      z-index: 999;
+      pointer-events: none;
+    }
+    &:after {
+      content: "\f030";
+      font-family: "fontawesome";
+      position: absolute;
+      font-size: 90px;
+      top: 50%;
+      left: 50%;
+      transform: translateY(-50%) translateX(-50%);
+      color: rgba(0,0,0,.55);
+      z-index: 999;
+      pointer-events: none;
+    }
+  }
+
+}

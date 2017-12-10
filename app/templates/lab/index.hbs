@@ -1,0 +1,200 @@
+<header class="lab-profile__header u-text-center">
+  <div class="lab-profile__header--background" aria-hidden="true" style="background-image: url({{model.banner}})"></div>
+  <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="background-image: url({{model.parsedLogo}});" class="lab-profile__header--logo">
+  <h1 class="u-text-white u-text-bold u-text-capital">March for Science</h1>
+  <h2 class="u-text-orange">{{model.displayName}}</h2>
+
+  {{#if isAdmin}}
+    {{#link-to 'lab.admin' model.uriName  class="lab-profile__header--button u-button--large"}}
+      <i class="fa fa-pencil" aria-hidden="true"></i>
+      Edit
+    {{/link-to}}
+  {{else}}
+  {{log modals}}
+    <button class="lab-profile__header--button u-button--large" {{action "toggleSubscribeModal"}}>Register as a Member</button>
+
+    {{#if session.user.isSuper}}
+      {{#link-to 'lab.admin' model.uriName  class="u-button__tertiary lab-profile__header--button"}}
+        <i class="fa fa-pencil" aria-hidden="true" style="margin-left: 32px;"></i>
+        Edit
+      {{/link-to}}
+    {{/if}}
+  {{/if}}
+
+  <ul class="lab-profile__header-social-icons">
+    {{#if model.facebook}}
+      <li><a href="{{model.facebook}}" target="_blank"><i class="fa fa-facebook-square" aria-hidden="true"></i></a></li>
+    {{/if}}
+    {{#if model.twitter}}
+      <li><a href="{{model.twitter}}" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+    {{/if}}
+    {{#if model.instagram}}
+      <li><a href="{{model.instagram}}" target="_blank"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+    {{/if}}
+    {{#if model.website}}
+      <li><a href="{{model.website}}" target="_blank"><i class="fa fa-globe" aria-hidden="true"></i></a></li>
+    {{/if}}
+  </ul>
+
+</header>
+
+{{#simple-modal show=showSubscribeModal onDismiss=(action "toggleSubscribeModal")}}
+
+  <h3 class="u-text-orange u-text-center">Register as a Member</h3>
+  <h4 class="u-text-h5 u-text-center" style="margin-bottom: 16px;">{{model.displayName}}</h4>
+  <form name="signup" class="bsd-signup" action="https://secure.marchforscience.com/page/s/rsvpembed" method="post" id="popup-signup-form">
+
+    <fieldset style="display: none;">
+
+     <input id="popup-city" name="city" type="hidden" value={{model.city}}>
+     <input id="popup-state_cd" name="state_cd" type="hidden" value={{model.state}}>
+     <input id="popup-country" name="country" type="hidden" value={{model.country}}>
+     <input id="popup-best-contact-time" name="best-contact-time" value="" type="hidden">
+     <input id="popup-_guid" name="_guid" type="hidden" value="">
+     <input name="redirect_url" type="hidden" value="{{currentUrl}}">
+
+    </fieldset>
+
+    {{float-input name="firstname" label="First Name" type="text" required="true" class="u-grid-12"}}
+    {{float-input name="lastname" label="Last Name" type="text" required="true" class="u-grid-12 u-grid-last"}}
+    {{float-input name="email" label="Email Address" type="email" required="true" class="u-grid-12"}}
+    {{float-input name="phone" label="Phone Number" type="text" class="u-grid-12 u-grid-last"}}
+
+    <input name="submit-btn" value="Register" type="submit" class="u-button--large u-grid-center">
+  </form>
+
+{{/simple-modal}}
+
+<main class="u-grid-container" style="padding-top: 42px;">
+  {{#ivy-tabs selection=selection as |tabs|}}
+    {{!-- {{#tabs.tablist as |tablist|}}
+      <ul role="presentation">
+        <li role="presentation">
+          {{#tablist.tab "goals" on-select=(action (mut selection))}}
+            {{scroll-to href='#about' label='About' offset=-64}}
+          {{/tablist.tab}}
+        </li>
+
+        <li role="presentation">
+          {{#tablist.tab "team" on-select=(action (mut selection))}}
+            {{scroll-to href='#team' label='Team' offset=-64}}
+          {{/tablist.tab}}
+        </li>
+
+        <li role="presentation">
+          {{#tablist.tab "events" on-select=(action (mut selection))}}
+            {{scroll-to href='#events' label='Programs' offset=-64}}
+          {{/tablist.tab}}
+        </li>
+
+        <li role="presentation">
+          {{#tablist.tab "blog" on-select=(action (mut selection))}}
+            {{scroll-to href='#resources' label='Resources' offset=-64}}
+          {{/tablist.tab}}
+        </li>
+
+        {{#if session.user.isAdmin}}
+          <li role="presentation">
+            {{#tablist.tab "admin" on-select=(action (mut selection))}}Admin{{/tablist.tab}}
+          </li>
+        {{/if}}
+      </ul>
+    {{/tabs.tablist}} --}}
+
+    <section class="lab-profile__section" id="about">
+      <div class="u-grid-16">
+        {{#quill-editor ops=mission seamless=true}}{{/quill-editor}}
+      </div>
+
+      <div class="u-grid-8 u-grid-last">
+        <a href="{{donateLink}}" class="u-button--large u-button-block" target="_blank">Donate to this lab</a>
+        <p class="u-text-center">or</p>
+        <a href={{storeLink}} target="_blank">
+          <img src={{transparent-pixel}}
+               class="lab-profile__store-image"
+               alt="Purchase from the lab March Store"
+               style="background-image: url({{storeImage}});position: relative;z-index: 2"
+              >
+        </a>
+      </div>
+
+      {{!-- <div class="u-grid-12">
+        <h3>Blog</h3>
+        {{blog-widget}}
+      </div> --}}
+
+      <div class="u-grid-12">
+        {{#if twitter}}
+          <h3>Twitter</h3>
+          <a class="twitter-timeline" data-height="420" data-theme="light" href="{{twitter}}">Tweets by TwitterDev</a> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+        {{/if}}
+      </div>
+
+      <div class="u-grid-12 u-grid-last" style="max-width: 340px;">
+        {{#if facebook}}
+          <h3>Facebook</h3>
+          <iframe src="https://www.facebook.com/plugins/page.php?href={{facebook}}&tabs=timeline&width=340&height=420&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId=657594654312533" width="340" height="420" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
+        {{/if}}
+      </div>
+    </section>
+
+    <section class="lab-profile__section--gray" id="team">
+      <h3>Team</h3>
+      <ul class="lab-profile__section--team">
+        {{#each model.admins as | admin |}}
+            <li class="lab-profile__team-member u-grid-6 u-grid-last">
+              <img  src={{transparent-pixel}}
+                    alt="{{admin.firstName}} {{admin.lastName}} Profile Image"
+                    style="background-image: url({{admin.image}})">
+              <h4>{{admin.firstName}} {{admin.lastName}}</h4>
+              {{#if admin.adminroles.0.title}}<h5>{{admin.adminroles.0.title}}</h5>{{/if}}
+              <p>{{admin.bio}}</p>
+            </li>
+        {{else}}
+          <li class="lab-profile__team-member--empty u-grid-block u-grid-last u-text-center">
+            <h4>No team members added yet</h4>
+            {{!-- <a href="mailto:march@marchforscience.com" class="u-text-center" style="display: block;">Run this lab? Click here to claim this page</a> --}}
+          </li>
+        {{/each}}
+      </ul>
+    </section>
+
+    {{#if model.sponsors}}
+      <section class="lab-profile__section" id="sponsors">
+        <h3>Sponsors</h3>
+        <ul class="lab-profile__section--team">
+          {{#each model.sponsors as | sponsor |}}
+              <li class="lab-profile__company-logo u-grid-6 u-grid-last">
+                <a href="{{sponsor.link}}" target="_blank">
+                  <img  src={{transparent-pixel}}
+                        alt="{{sponsor.name}} Profile Image"
+                        style="background-image: url({{sponsor.image}})">
+                  <h4>{{sponsor.name}}</h4>
+                </a>
+              </li>
+          {{/each}}
+        </ul>
+      </section>
+    {{/if}}
+
+    {{#if model.endorsements}}
+      <section class="lab-profile__section" id="endorsements">
+        <h3>Endorsements</h3>
+        <ul class="lab-profile__section--team">
+          {{#each model.endorsements as | endorsement |}}
+              <li class="lab-profile__company-logo u-grid-6 u-grid-last">
+                <a href="{{endorsement.link}}" target="_blank">
+                  <img  src={{transparent-pixel}}
+                        alt="{{endorsement.name}} Profile Image"
+                        style="background-image: url({{endorsement.image}})">
+                  <h4>{{endorsement.name}}</h4>
+                </a>
+              </li>
+          {{/each}}
+        </ul>
+      </section>
+    {{/if}}
+
+  {{/ivy-tabs}}
+
+</main>

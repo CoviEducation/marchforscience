@@ -1,9 +1,9 @@
 'use strict';
 
-var data = require('../../data/satellitedata');
+var data = require('../../data/labdata');
 
 module.exports = function(server) {
-  var Satellite = server.models.satellite;
+  var Lab = server.models.lab;
   var User = server.models.user;
 
   function cb(err) {
@@ -11,13 +11,13 @@ module.exports = function(server) {
   }
 
   if (User) {
-    User.count({ email: 'superuser@covieducation.org' }, (err, count) => {
+    User.count({ email: 'superuser@thepeoplesscience.org' }, (err, count) => {
       if (err) return cb(err);
       if (count !== 0) return;
       User.create({
         firstName: 'Super',
         lastName: 'User',
-        email: 'superuser@covieducation.org',
+        email: 'superuser@thepeoplesscience.org',
         password: process.env.SUPERUSER_PASSWORD,
         phone: '1234567890',
         role: 'admin',
@@ -29,17 +29,27 @@ module.exports = function(server) {
     });
   }
 
-  // if (Satellite) {
-  //   Satellite.count({}, {}, (err, count) => {
-  //     if (err) return cb(err);
-  //     if (count !== 0) return;
-  //     // Satellite.destroyAll(function(err, info){
-  //       // if (err) return cb(err);
-  //       Satellite.create(data, function(err, users) {
-  //         if (err) return cb(err);
-  //       });
-  //     // });
-  //   });
-  // }
+  if (Lab) {
+    Lab.count({}, {}, (err, count) => {
+      if (err) return cb(err);
+      console.log('Seeding Lab Info');
+      if (count !== 0) {
+        console.log('Cleaning Old Data...')
+        Lab.destroyAll(function(err, info){
+          if (err) return cb(err);
+          console.log('Inserting New Data...')
+          Lab.create(data, function(err, users) {
+            if (err) return cb(err);
+          });
+        });
+      }
+      else {
+        console.log('Inserting New Data...')
+        Lab.create(data, function (err, users) {
+          if (err) return cb(err);
+        });
+      }
+    });
+  }
 
 };

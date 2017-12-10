@@ -44,7 +44,7 @@
     "dataSource": "gcloud-datastore",
     "public": false
   },
-  "satellite": {
+  "lab": {
     "dataSource": "gcloud-datastore",
     "public": true
   },
@@ -55,15 +55,7 @@
       "emailVerificationRequired": true
     }
   },
-  "MarchRoles": {
-    "dataSource": "gcloud-datastore",
-    "public": false
-  },
-  "SatelliteMapping": {
-    "dataSource": "gcloud-datastore",
-    "public": false
-  },
-  "SatelliteAdmins": {
+  "LabMembership": {
     "dataSource": "gcloud-datastore",
     "public": true
   }

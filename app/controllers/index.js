@@ -3,7 +3,7 @@ const { set, get } = Ember;
 
 export default Ember.Controller.extend({
   
-  satellites: Ember.inject.service('satellites'),
+  labs: Ember.inject.service('labs'),
 
   actions: {
     toggleSubscribeModal(){

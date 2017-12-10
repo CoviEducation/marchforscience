@@ -8,8 +8,8 @@ const Router = Ember.Router.extend({
 
 Router.map(function() {
   this.route('index', { path: '/' });
-  this.route('satellites');
-  this.route('satellite', { path: 'satellite/:id' }, function() {
+  this.route('labs');
+  this.route('lab', { path: 'lab/:id' }, function() {
     this.route('admin', function() {
       this.route('team');
       this.route('message');
@@ -25,6 +25,7 @@ Router.map(function() {
     this.route('verify');
   });
   this.route('week-of-action');
+  this.route('about');
 });
 
 export default Router;
