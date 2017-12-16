@@ -9,7 +9,30 @@
     "type": {
       "type": "string",
       "required": true,
-      "enum": [ "admin", "member" ]
+      "enum": [ "admin", "moderator", "member" ]
+    },
+    "labId": {
+      "type": "number",
+      "required": true,
+      "index": true
+    },
+    "userId": {
+      "type": "number",
+      "required": true,
+      "index": true
+    },
+    "inviterId": {
+      "type": "number",
+      "required": true,
+      "index": true
+    },
+    "inviteSent": {
+      "type": "boolean",
+      "required": true
+    },
+    "created": {
+      "type": "date",
+      "required": true
     }
   },
   "validations": [],
@@ -19,7 +42,7 @@
       "model": "lab",
       "foreignKey": "labId"
     },
-    "admin": {
+    "user": {
       "type": "belongsTo",
       "model": "user",
       "foreignKey": "userId"

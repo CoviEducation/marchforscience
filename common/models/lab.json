@@ -6,15 +6,30 @@
     "validateUpsert": true
   },
   "properties": {
+    "id": {
+      "type": "Number",
+      "id": true
+    },
+    "name": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
     "banner": {
       "type": "string"
+    },
+    "created": {
+      "type": "date"
     },
     "logo": {
       "type": "string"
     },
     "city": {
-      "type": "string",
-      "required": true
+      "type": "string"
     },
     "state": {
       "type": "string"
@@ -27,47 +42,19 @@
       "required": true
     },
     "latitude": {
-      "type": "string",
-      "required": true
+      "type": "string"
     },
     "longitude": {
-      "type": "string",
-      "required": true
-    },
-    "social_media": {
-      "type": "object"
-    },
-    "team": {
-      "type": [
-        "string"
-      ]
-    },
-    "mission": {
       "type": "string"
     },
-    "goals": {
-      "type": "string"
+    "lastActivity": {
+      "type": "date"
     },
-    "shop": {
-      "type": "string"
+    "memberCount": {
+      "type": "number"
     },
-    "blog": {
-      "type": "string"
-    },
-    "partners": {
-      "type": [
-        "object"
-      ]
-    },
-    "endorsements": {
-      "type": [
-        "object"
-      ]
-    },
-    "sponsors": {
-      "type": [
-        "object"
-      ]
+    "ownerId": {
+      "type": "number"
     }
   },
   "validations": [],
@@ -75,17 +62,23 @@
     "owner": {
       "type": "belongsTo",
       "model": "user",
-      "foreignKey": "owner"
+      "foreignKey": "ownerId"
     },
     "members": {
       "type": "hasMany",
       "model": "user",
       "foreignKey": "labId",
-      "through": "LabMembership",
-      "keyThrough": "userId"
+      "through": "LabMembership"
     }
   },
   "acls": [
+    {
+      "accessType": "READ",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": "*"
+    },
     {
       "accessType": "WRITE",
       "principalType": "ROLE",
@@ -96,9 +89,16 @@
     {
       "accessType": "WRITE",
       "principalType": "ROLE",
-      "principalId": "LabAdmin",
+      "principalId": "LabOwner",
       "permission": "ALLOW",
       "property": "*"
+    },
+    {
+      "accessType": "WRITE",
+      "principalType": "ROLE",
+      "principalId": "LabAdmin",
+      "permission": "ALLOW",
+      "property": "name"
     },
     {
       "accessType": "WRITE",

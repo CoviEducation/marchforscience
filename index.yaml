@@ -1,6 +1,20 @@
 indexes:
 - kind: AccessToken
-  ancestor: no
   properties:
   - name: id
   - name: userId
+
+# - kind: user
+#   properties:
+#   - name: username
+
+- kind: lab
+  properties:
+  - name: id
+  - name: owner
+  - name: slug
+
+- kind: LabMembership
+  properties:
+  - name: userId
+  - name: labId

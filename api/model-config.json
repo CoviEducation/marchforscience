@@ -18,45 +18,45 @@
     "dataSource": "ses"
   },
   "UserCredential": {
-    "dataSource": "gcloud-datastore",
+    "dataSource": "mongo",
     "public": false
   },
   "UserIdentity": {
-    "dataSource": "gcloud-datastore",
+    "dataSource": "mongo",
     "public": false
   },
   "AccessToken": {
-    "dataSource": "gcloud-datastore",
+    "dataSource": "mongo",
     "public": false
   },
   "ACL": {
-    "dataSource": "gcloud-datastore",
+    "dataSource": "mongo",
     "public": false
   },
   "RoleMapping": {
-    "dataSource": "gcloud-datastore",
+    "dataSource": "mongo",
     "public": false,
     "options": {
       "strictObjectIDCoercion": true
     }
   },
   "Role": {
-    "dataSource": "gcloud-datastore",
+    "dataSource": "mongo",
     "public": false
   },
   "lab": {
-    "dataSource": "gcloud-datastore",
+    "dataSource": "mongo",
     "public": true
   },
   "user": {
-    "dataSource": "gcloud-datastore",
+    "dataSource": "mongo",
     "public": true,
     "options": {
       "emailVerificationRequired": true
     }
   },
   "LabMembership": {
-    "dataSource": "gcloud-datastore",
+    "dataSource": "mongo",
     "public": true
   }
 }

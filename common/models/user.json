@@ -7,10 +7,32 @@
     "validateUpsert": true
   },
   "properties": {
+    "id": {
+      "type": "Number",
+      "id": true
+    },
+    "role": {
+      "type": "string",
+      "index": true,
+      "enum": [
+        "admin",
+        "moderator",
+        "researcher"
+      ]
+    },
     "email": {
       "type": "string",
-      "required": true,
-      "index": true
+      "required": true
+    },
+    "registered": {
+      "type": "date",
+      "required": true
+    },
+    "lastActivity": {
+      "type": "date"
+    },
+    "username": {
+      "type": "string"
     },
     "firstName": {
       "type": "string",
@@ -20,33 +42,48 @@
       "type": "string"
     },
     "lastName": {
-      "type": "string",
-      "required": true
+      "type": "string"
     },
     "phone": {
-      "type": "string",
-      "required": true
+      "type": "string"
     },
     "image": {
       "type": "string"
     },
-    "role": {
-      "type": "string",
-      "index": true,
-      "enum": [ "admin", "moderator" ]
+    "description": {
+      "type": "string"
     },
-    "bio": {
+    "title": {
+      "type": "string"
+    },
+    "location": {
+      "type": "string"
+    },
+    "facebook": {
+      "type": "string"
+    },
+    "twitter": {
+      "type": "string"
+    },
+    "instagram": {
+      "type": "string"
+    },
+    "linkedin": {
       "type": "string"
     }
   },
   "validations": [],
   "relations": {
-    "labs": {
+    "memberships": {
       "type": "hasMany",
       "model": "lab",
       "foreignKey": "userId",
-      "through": "LabMembership",
-      "keyThrough": "labId"
+      "through": "LabMembership"
+    },
+    "labs": {
+      "type": "hasMany",
+      "model": "lab",
+      "foreignKey": "ownerId"
     }
   },
   "acls": [

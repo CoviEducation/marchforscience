@@ -36,7 +36,7 @@ hr {
 
 .app--nav {
   position: fixed;
-  background-color: get-color(blue);
+  background-color: get-color(gray1);
   left: 0;
   right: 0;
   top: 0;
@@ -54,7 +54,7 @@ hr {
     content: "";
     position: absolute;
     z-index: -1;
-    background-color: get-color(blue);
+    background-color: get-color(gray1);
     height: 72px;
     left: 0;
     right: 0;
@@ -103,7 +103,7 @@ hr {
   }
 
   &__logo {
-    height: 48px;
+    height: 64px;
     width: auto;
     margin: 12px 12px;
     line-height: 48px;
